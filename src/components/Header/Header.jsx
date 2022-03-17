@@ -12,17 +12,17 @@ export default function Header({ cart }) {
             <div className="primary-menus">
               <ul className="navbar-nav">
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/home" className="nav-link">
+                  <a href="/" className="nav-link">
                     Home
                   </a>
                 </li>
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/products" className="nav-link">
+                  <a href="/" className="nav-link">
                     Products
                   </a>
                 </li>
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/contact" className="nav-link">
+                  <a href="/" className="nav-link">
                     Contact
                   </a>
                 </li>
