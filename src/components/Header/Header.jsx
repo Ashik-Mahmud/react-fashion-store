@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function Header({ cart }) {
   return (
@@ -12,19 +13,19 @@ export default function Header({ cart }) {
             <div className="primary-menus">
               <ul className="navbar-nav">
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/" className="nav-link">
+                  <NavLink to="/" className="nav-link">
                     Home
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/" className="nav-link">
+                  <NavLink to="/products" className="nav-link">
                     Products
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <a href="/" className="nav-link">
-                    Contact
-                  </a>
+                  <NavLink to="/mobile" className="nav-link">
+                    Mobile
+                  </NavLink>
                 </li>
                 <li className="nav-item">
                   <span className="nav-link">
