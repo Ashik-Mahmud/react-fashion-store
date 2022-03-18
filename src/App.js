@@ -5,7 +5,6 @@ import Carts from './components/Carts/Carts';
 import Header from './components/Header/Header';
 import Mobile from './components/Mobile/Mobile';
 import Home from './components/Pages/Home';
-import Products from './components/Products/Products';
 import TogglePassword from './components/TogglePassword/TogglePassword';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
      <Routes>
          <Route path='/' element={<Home setCart={setCart} cart={cart}/>} />
          <Route path='/mobile' element={<Mobile />} />
-         <Route path='/products' element={<Products />} />
          <Route path="/password" element={<TogglePassword />} />
          <Route path='/carts' element={<Carts />} />
      </Routes>

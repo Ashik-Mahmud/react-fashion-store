@@ -22,19 +22,17 @@ export default function Header({ cart }) {
             </div>
             <div className="primary-menus">
               <ul className="navbar-nav">
-                {["Home", "Products", "Mobile", "Password"].map(
-                  (item, index) => (
-                    <NavMenu
-                      key={item + index}
-                      path={`${
-                        item.toLowerCase() === "home"
-                          ? "/"
-                          : "/" + item.toLowerCase()
-                      }`}
-                      name={item}
-                    />
-                  )
-                )}
+                {["Home", "Mobile", "Password"].map((item, index) => (
+                  <NavMenu
+                    key={item + index}
+                    path={`${
+                      item.toLowerCase() === "home"
+                        ? "/"
+                        : "/" + item.toLowerCase()
+                    }`}
+                    name={item}
+                  />
+                ))}
                 <li className="nav-item">
                   <NavLink to={"/carts"} className="nav-link">
                     Cart <sup className="badge bg-primary">{cart}</sup>
