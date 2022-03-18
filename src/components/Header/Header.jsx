@@ -1,6 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+const NavMenu = ({ path, name }) => {
+  return (
+    <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
+      <NavLink to={path} className="nav-link">
+        {name}
+      </NavLink>
+    </li>
+  );
+};
+
 export default function Header({ cart }) {
   return (
     <>
@@ -12,21 +22,16 @@ export default function Header({ cart }) {
             </div>
             <div className="primary-menus">
               <ul className="navbar-nav">
-                <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <NavLink to="/" className="nav-link">
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <NavLink to="/products" className="nav-link">
-                    Products
-                  </NavLink>
-                </li>
-                <li className="nav-item  d-none d-sm-block d-md-block d-lg-block">
-                  <NavLink to="/mobile" className="nav-link">
-                    Mobile
-                  </NavLink>
-                </li>
+                {["Home", "Products", "Mobile", "Password"].map((item) => (
+                  <NavMenu
+                    path={`${
+                      item.toLowerCase() === "home"
+                        ? "/"
+                        : "/" + item.toLowerCase()
+                    }`}
+                    name={item}
+                  />
+                ))}
                 <li className="nav-item">
                   <span className="nav-link">
                     Cart <sup className="badge bg-primary">{cart}</sup>

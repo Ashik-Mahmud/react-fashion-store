@@ -17,7 +17,6 @@ export default function ProductBody({ setCart, cart }) {
   return (
     <div>
       <div className="container py-4">
-        <h1>Fashion Products</h1>
         <div className="row my-3 g-4">
           {loading ? (
             products.map((product) => (
