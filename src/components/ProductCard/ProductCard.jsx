@@ -3,13 +3,31 @@ import { AiFillStar } from "react-icons/ai";
 import { Fade } from "react-reveal";
 import DetailsModal from "../Modal/DetailsModal";
 export const ProductCard = ({ product, setCart, cart }) => {
-  const { title, image, price, rating } = product;
-
+  const { title, id, image, price, rating } = product;
   let stars = [];
   for (let i = 1; i < rating.rate; i++) {
     stars.push(i);
   }
 
+  const handleCart = (cartId) => {
+    const item = getItem();
+    item.push(cartId);
+    localStorage.setItem("carts", JSON.stringify(item));
+  };
+
+  const getItem = () => {
+    const itemFromStorage = localStorage.getItem("carts");
+    let cartsId;
+    if (itemFromStorage) {
+      cartsId = JSON.parse(itemFromStorage);
+    } else {
+      cartsId = [];
+    }
+    return cartsId;
+  };
+
+  const itemsFromStorage = getItem();
+  if (itemsFromStorage) setCart(itemsFromStorage.length);
   return (
     <div className="col-lg-3">
       <Fade up duration={1000} distance={"50px"}>
@@ -41,8 +59,11 @@ export const ProductCard = ({ product, setCart, cart }) => {
                 onClick={(e) => {
                   e.target.style = "opacity: 0.6; pointer-events:none;";
                   setCart(cart + 1);
+                  handleCart(id);
                 }}
-                className="btn btn-sm btn-primary rounded-0"
+                className={`btn btn-sm btn-primary rounded-0 ${itemsFromStorage
+                  .map((item) => (item === id ? "disabled" : ""))
+                  .join(" ")}`}
               >
                 Add to Cart
               </button>
