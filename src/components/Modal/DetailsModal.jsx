@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 export default function DetailsModal({ product }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -17,10 +18,10 @@ export default function DetailsModal({ product }) {
     <>
       <Button
         variant="primary"
-        className="btn btn-sm btn-info rounded-0"
+        className="btn btn-sm btn-primary rounded"
         onClick={handleShow}
       >
-        Info
+        <BsFillInfoCircleFill />
       </Button>
 
       <Modal show={show} onHide={handleClose}>

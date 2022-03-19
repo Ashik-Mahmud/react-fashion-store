@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
+import { IoIosCloseCircle } from "react-icons/io";
 import DetailsModal from "../Modal/DetailsModal";
 export default function Carts({ setCart }) {
   const [carts, setCarts] = useState([]);
   const [deleteId, setDeleteId] = useState();
   const [loading, setLoading] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [isCoupon, setIsCoupon] = useState(false);
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products`)
@@ -30,6 +33,21 @@ export default function Carts({ setCart }) {
   if (deleteId) {
     localStorage.setItem("carts", JSON.stringify(deletedItemId));
   }
+
+  /* handle coupon  */
+  const handleCoupon = (e) => {
+    const couponCode = "honest";
+    if (coupon === couponCode) {
+      e.target.classList.remove("btn-info");
+      e.target.classList.add("disabled", "btn-success");
+      e.target.innerText = "Applied";
+      setIsCoupon(true);
+    } else {
+      alert(
+        `-${coupon}- name coupon is not available. please contact with them`
+      );
+    }
+  };
 
   return (
     <>
@@ -64,7 +82,7 @@ export default function Carts({ setCart }) {
               <table className="table mt-4">
                 <tbody>
                   <tr>
-                    <td>Total Products</td>
+                    <td style={{ width: "50%" }}>Total Products</td>
                     <th>{items.length}</th>
                   </tr>
                   <tr>
@@ -80,16 +98,46 @@ export default function Carts({ setCart }) {
                       <b>Total Money</b>
                     </td>
                     <th>
-                      {((totalCartsMoney * 5) / 100 + totalCartsMoney).toFixed(
-                        2
-                      )}
+                      {isCoupon
+                        ? (
+                            (totalCartsMoney * 5) / 100 +
+                            totalCartsMoney -
+                            50
+                          ).toFixed(2)
+                        : (
+                            (totalCartsMoney * 5) / 100 +
+                            totalCartsMoney
+                          ).toFixed(2)}
                       $
+                    </th>
+                  </tr>
+                  <tr>
+                    <td title="Save 50$ use Coupon">
+                      Coupon-
+                      <span className="bg-success text-white px-1 rounded-3">
+                        honest
+                      </span>{" "}
+                    </td>
+                    <th className="input-group " title="Save 50$ use Coupon">
+                      <input
+                        type="text"
+                        placeholder="Coupon Code"
+                        className="form-control form-control-sm"
+                        value={coupon}
+                        onChange={(e) => setCoupon(e.target.value)}
+                      />
+                      <button
+                        onClick={handleCoupon}
+                        className="btn btn-info btn-sm"
+                      >
+                        Apply
+                      </button>
                     </th>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <button className="mt-5 btn btn-primary  w-100 d-block ">
+            <button className="disabled mt-5 btn btn-primary  w-100 d-block ">
               Check Out
             </button>
           </div>
@@ -137,7 +185,7 @@ const CartsCard = ({ cart, setDeleteId }) => {
             onClick={() => setDeleteId(id)}
             className="btn btn-danger btn-sm"
           >
-            &times;
+            <IoIosCloseCircle />
           </button>
         </div>
       </div>
