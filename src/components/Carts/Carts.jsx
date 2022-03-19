@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
 import DetailsModal from "../Modal/DetailsModal";
 export default function Carts({ setCart }) {
   const [carts, setCarts] = useState([]);
   const [deleteId, setDeleteId] = useState();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products`)
       .then((response) => response.json())
       .then((data) => {
         setCarts(data);
+        setLoading(true);
       });
   }, []);
 
@@ -32,22 +36,28 @@ export default function Carts({ setCart }) {
       <div className="container py-5">
         <h3>Carts item</h3>
         <div className="row align-items-start">
-          <div className="col-lg-9">
-            {items.length !== 0 ? (
-              <div className="row mt-4 g-4">
-                {filteredCarts.map((cart) => (
-                  <CartsCard
-                    setDeleteId={setDeleteId}
-                    key={cart.id}
-                    cart={cart}
-                  />
-                ))}
-              </div>
+          <div className="col-lg-8">
+            {loading ? (
+              items.length !== 0 ? (
+                <div className="row mt-4 gy-4">
+                  {filteredCarts.map((cart) => (
+                    <CartsCard
+                      setDeleteId={setDeleteId}
+                      key={cart.id}
+                      cart={cart}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <h4 className="my-5 text-muted">No Carts Found.</h4>
+              )
             ) : (
-              <h4 className="my-5 text-muted">No Carts Found.</h4>
+              <div className=" my-5 py-5 text-center">
+                <Spinner animation="border" />
+              </div>
             )}
           </div>
-          <div className="col-lg-3 shadow p-4  mt-5">
+          <div className="col-lg-4 shadow p-4  mt-5">
             <div className="carts-estimate my-4">
               <h5>Total Carts Estimate</h5>
               <hr />
