@@ -18,7 +18,7 @@ function App() {
          <Route path='/' element={<Home setCart={setCart} cart={cart}/>} />
          <Route path='/mobile' element={<Mobile />} />
          <Route path="/password" element={<TogglePassword />} />
-         <Route path='/carts' element={<Carts />} />
+         <Route path='/carts' element={<Carts setCart={setCart} />} />
          <Route path="/*" element={<Error />} />
      </Routes>
     </BrowserRouter>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import DetailsModal from "../Modal/DetailsModal";
-export default function Carts() {
+export default function Carts({ setCart }) {
   const [carts, setCarts] = useState([]);
   const [deleteId, setDeleteId] = useState();
   useEffect(() => {
@@ -17,6 +17,12 @@ export default function Carts() {
   const deletedItem = filteredCarts.filter((cart) => cart.id !== deleteId);
   const deletedItemId = deletedItem.map((item) => item.id);
 
+  const totalCartsMoney = filteredCarts.reduce(
+    (acc, item) => acc + item.price,
+    0
+  );
+
+  setCart(items.length);
   if (deleteId) {
     localStorage.setItem("carts", JSON.stringify(deletedItemId));
   }
@@ -25,15 +31,59 @@ export default function Carts() {
     <>
       <div className="container py-5">
         <h3>Carts item</h3>
-        {items.length !== 0 ? (
-          <div className="row mt-4 g-4">
-            {filteredCarts.map((cart) => (
-              <CartsCard setDeleteId={setDeleteId} key={cart.id} cart={cart} />
-            ))}
+        <div className="row align-items-start">
+          <div className="col-lg-9">
+            {items.length !== 0 ? (
+              <div className="row mt-4 g-4">
+                {filteredCarts.map((cart) => (
+                  <CartsCard
+                    setDeleteId={setDeleteId}
+                    key={cart.id}
+                    cart={cart}
+                  />
+                ))}
+              </div>
+            ) : (
+              <h4 className="my-5 text-muted">No Carts Found.</h4>
+            )}
           </div>
-        ) : (
-          <h4 className="my-5 text-muted">No Carts Found.</h4>
-        )}
+          <div className="col-lg-3 shadow p-4  mt-5">
+            <div className="carts-estimate my-4">
+              <h5>Total Carts Estimate</h5>
+              <hr />
+              <table className="table mt-4">
+                <tbody>
+                  <tr>
+                    <td>Total Products</td>
+                    <th>{items.length}</th>
+                  </tr>
+                  <tr>
+                    <td>Carts Money</td>
+                    <th>{totalCartsMoney} $</th>
+                  </tr>
+                  <tr>
+                    <td>Tax 5%</td>
+                    <th>{((totalCartsMoney * 5) / 100).toFixed(2)} $</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Total Money</b>
+                    </td>
+                    <th>
+                      {((totalCartsMoney * 5) / 100 + totalCartsMoney).toFixed(
+                        2
+                      )}
+                      $
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button className="mt-5 btn btn-primary  w-100 d-block ">
+              Check Out
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -46,12 +96,12 @@ const CartsCard = ({ cart, setDeleteId }) => {
     stars.push(i);
   }
   return (
-    <div className="col-lg-3">
-      <div className="card border-0 shadow p-3">
+    <div className="col-lg-10">
+      <div className="card rounded-3 border-0 shadow p-3 flex-row align-items-center justify-content-between">
         <div className="card-header border-0 text-center bg-light p-3">
-          <img width={"200"} height={"200"} src={image} alt={title} />
+          <img width={"80"} height={"80"} src={image} alt={title} />
         </div>
-        <div className="card-body">
+        <div className="card-body px-5">
           <h5 className="card-title">
             {title.length > 40 ? title.slice(0, 40) + "..." : title}
           </h5>
@@ -70,15 +120,15 @@ const CartsCard = ({ cart, setDeleteId }) => {
               </span>
             </span>
           </div>
-          <div className="d-flex gap-2 mt-2">
-            <button
-              onClick={() => setDeleteId(id)}
-              className="btn btn-danger btn-sm"
-            >
-              Delete Item
-            </button>
-            <DetailsModal product={cart} />
-          </div>
+        </div>
+        <div className="d-flex gap-2 mt-2">
+          <DetailsModal product={cart} />
+          <button
+            onClick={() => setDeleteId(id)}
+            className="btn btn-danger btn-sm"
+          >
+            &times;
+          </button>
         </div>
       </div>
     </div>

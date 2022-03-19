@@ -20,7 +20,7 @@ export default function DetailsModal({ product }) {
         className="btn btn-sm btn-info rounded-0"
         onClick={handleShow}
       >
-        Show Info
+        Info
       </Button>
 
       <Modal show={show} onHide={handleClose}>
