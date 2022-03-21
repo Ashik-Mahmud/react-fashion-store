@@ -52,6 +52,7 @@ export default function Carts({ setCart }) {
       );
     }
   };
+  console.log(items);
 
   return (
     <>
@@ -79,79 +80,84 @@ export default function Carts({ setCart }) {
               </div>
             )}
           </div>
-          <div className="col-lg-4 shadow p-4  mt-5">
-            <div className="carts-estimate my-4">
-              <h5>Total Carts Estimate</h5>
-              <hr />
-              <table className="table mt-4">
-                <tbody>
-                  <tr>
-                    <td style={{ width: "50%" }}>Total Products</td>
-                    <th>{items?.length ? items?.length : 0}</th>
-                  </tr>
-                  <tr>
-                    <td>Carts Money</td>
-                    <th>{realTotalCartMoney ? realTotalCartMoney : "000"} $</th>
-                  </tr>
-                  <tr>
-                    <td>Tax 5%</td>
-                    <th>{realTax ? realTax.toFixed(2) : "000"} $</th>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Total Money</b>
-                    </td>
-                    <th>
-                      {isCoupon
-                        ? realTotalCartMoney
+          {items.length > 0 && (
+            <div className="col-lg-4 shadow p-4  mt-5">
+              <div className="carts-estimate my-4">
+                <h5>Total Carts Estimate</h5>
+                <hr />
+                <table className="table mt-4">
+                  <tbody>
+                    <tr>
+                      <td style={{ width: "50%" }}>Total Products</td>
+                      <th>{items?.length ? items?.length : 0}</th>
+                    </tr>
+                    <tr>
+                      <td>Carts Money</td>
+                      <th>
+                        {realTotalCartMoney ? realTotalCartMoney : "000"} $
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>Tax 5%</td>
+                      <th>{realTax ? realTax.toFixed(2) : "000"} $</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Total Money</b>
+                      </td>
+                      <th>
+                        {isCoupon
+                          ? realTotalCartMoney
+                            ? (
+                                parseFloat(realTotalCartMoney) +
+                                parseFloat(realTax) -
+                                50
+                              ).toFixed(2)
+                            : "000"
+                          : realTotalCartMoney
                           ? (
                               parseFloat(realTotalCartMoney) +
-                              parseFloat(realTax) -
-                              50
+                              parseFloat(realTax)
                             ).toFixed(2)
-                          : "000"
-                        : realTotalCartMoney
-                        ? (
-                            parseFloat(realTotalCartMoney) + parseFloat(realTax)
-                          ).toFixed(2)
-                        : "000"}
-                      $
-                    </th>
-                  </tr>
-                  <tr>
-                    <td title="Save 50$ use Coupon">
-                      Coupon-
-                      <span
-                        className={`${
-                          isCoupon ? "bg-success " : "bg-info "
-                        }text-white px-1 rounded-3`}
-                      >
-                        honest
-                      </span>{" "}
-                    </td>
-                    <th className="input-group " title="Save 50$ use Coupon">
-                      <input
-                        type="text"
-                        placeholder="Coupon Code"
-                        className="form-control form-control-sm"
-                        value={coupon}
-                        onChange={(e) => setCoupon(e.target.value)}
-                      />
-                      <button
-                        onClick={handleCoupon}
-                        className="btn btn-info btn-sm"
-                      >
-                        Apply
-                      </button>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
+                          : "000"}
+                        $
+                      </th>
+                    </tr>
+                    <tr>
+                      <td title="Save 50$ use Coupon">
+                        Coupon-
+                        <span
+                          className={`${
+                            isCoupon ? "bg-success " : "bg-info "
+                          }text-white px-1 rounded-3`}
+                        >
+                          honest
+                        </span>{" "}
+                      </td>
+                      <th className="input-group " title="Save 50$ use Coupon">
+                        <input
+                          type="text"
+                          placeholder="Coupon Code"
+                          className="form-control form-control-sm"
+                          value={coupon}
+                          onChange={(e) => setCoupon(e.target.value)}
+                        />
+                        <button
+                          onClick={handleCoupon}
+                          className="btn btn-info btn-sm"
+                        >
+                          Apply
+                        </button>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button className="disabled mt-5 btn btn-primary  w-100 d-block ">
+                Check Out
+              </button>
             </div>
-            <button className="disabled mt-5 btn btn-primary  w-100 d-block ">
-              Check Out
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </>
