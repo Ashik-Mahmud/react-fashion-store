@@ -52,7 +52,6 @@ export default function Carts({ setCart }) {
       );
     }
   };
-  console.log(items);
 
   return (
     <>
