@@ -9,9 +9,9 @@ export const ProductCard = ({ product, setCart, cart }) => {
     stars.push(i);
   }
 
-  const handleCart = (cartId) => {
+  const handleCart = (cartId, price) => {
     const item = getItem();
-    item.push(cartId);
+    item.push({ cartId, qty: 1, price });
     localStorage.setItem("carts", JSON.stringify(item));
   };
 
@@ -59,10 +59,10 @@ export const ProductCard = ({ product, setCart, cart }) => {
                 onClick={(e) => {
                   e.target.style = "opacity: 0.6; pointer-events:none;";
                   setCart(cart + 1);
-                  handleCart(id);
+                  handleCart(id, price);
                 }}
                 className={`btn btn-sm btn-primary rounded-0 ${itemsFromStorage
-                  .map((item) => (item === id ? "disabled" : ""))
+                  .map((item) => (item.cartId === id ? "disabled" : ""))
                   .join(" ")}`}
               >
                 Add to Cart

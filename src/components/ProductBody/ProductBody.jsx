@@ -19,7 +19,7 @@ export default function ProductBody({ setCart, cart }) {
       <div className="container py-4">
         <div className="row my-3 g-4">
           {loading ? (
-            products.map((product) => (
+            products?.map((product) => (
               <ProductCard
                 key={product.id}
                 cart={cart}
