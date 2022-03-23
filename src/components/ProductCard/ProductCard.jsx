@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { Fade } from "react-reveal";
 import DetailsModal from "../Modal/DetailsModal";
 export const ProductCard = ({ product, setCart, cart }) => {
+  const [itemsFromStorage, setItemsFromStorage] = useState([]);
   const { title, id, image, price, rating } = product;
   let stars = [];
   for (let i = 1; i < rating.rate; i++) {
@@ -26,8 +27,10 @@ export const ProductCard = ({ product, setCart, cart }) => {
     return cartsId;
   };
 
-  const itemsFromStorage = getItem();
-  if (itemsFromStorage) setCart(itemsFromStorage.length);
+  useEffect(() => {
+    setItemsFromStorage(getItem());
+    if (itemsFromStorage) setCart(itemsFromStorage.length);
+  }, []);
   return (
     <div className="col-lg-3">
       <Fade up duration={1000} distance={"50px"}>

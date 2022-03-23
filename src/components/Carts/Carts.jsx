@@ -15,7 +15,7 @@ export default function Carts({ setCart }) {
   const [coupon, setCoupon] = useState("");
   const [isCoupon, setIsCoupon] = useState(false);
   const [totalMoney, setTotalMoney] = useState(0);
-
+  const [items, setItems] = useState([]);
   const realTotalCartMoney = totalMoney
     ? totalMoney
     : totalCartsMoneyFromStorage();
@@ -31,12 +31,12 @@ export default function Carts({ setCart }) {
       });
   }, []);
 
-  const items = JSON.parse(localStorage.getItem("carts"));
-
   const storageCarts = items?.map((item) => item.cartId);
   const filteredCarts = carts.filter((cart) => storageCarts?.includes(cart.id));
-
-  setCart(items?.length);
+  useEffect(() => {
+    setItems(JSON.parse(localStorage.getItem("carts")));
+    setCart(items?.length);
+  }, [setCart, items?.length]);
 
   /* handle coupon  */
   const handleCoupon = (e) => {
@@ -79,7 +79,7 @@ export default function Carts({ setCart }) {
               </div>
             )}
           </div>
-          {items.length > 0 && (
+          {items?.length > 0 && (
             <div className="col-lg-4 shadow p-4  mt-5">
               <div className="carts-estimate my-4">
                 <h5>Total Carts Estimate</h5>

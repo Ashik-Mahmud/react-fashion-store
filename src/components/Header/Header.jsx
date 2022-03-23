@@ -13,6 +13,8 @@ const NavMenu = ({ path, name }) => {
 };
 
 export default function Header({ cart }) {
+  const getItem = JSON.parse(localStorage.getItem("carts"));
+
   return (
     <>
       <header id="header">
@@ -37,7 +39,9 @@ export default function Header({ cart }) {
                 <li className="nav-item">
                   <NavLink to={"/carts"} className="nav-link">
                     <BsCart3 className="h6" />{" "}
-                    <sup className="badge bg-dark text-white">{cart}</sup>
+                    <sup className="badge bg-dark text-white">
+                      {cart ? cart : getItem?.length}
+                    </sup>
                   </NavLink>
                 </li>
               </ul>
