@@ -30,7 +30,7 @@ export const ProductCard = ({ product, setCart, cart }) => {
   useEffect(() => {
     setItemsFromStorage(getItem());
     if (itemsFromStorage) setCart(itemsFromStorage.length);
-  }, []);
+  }, [itemsFromStorage, setCart]);
   return (
     <div className="col-lg-3">
       <Fade up duration={1000} distance={"50px"}>
